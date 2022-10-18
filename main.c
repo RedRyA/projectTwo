@@ -103,7 +103,7 @@ unsigned long isbn[MAX_COUNTER];
 
     counter++;
     
-      if (counter <MAX_COUNTER){
+      if (counter < MAX_COUNTER){
 	
       printf ("Would you like to continue?\n Y/N\n");
       scanf ("%s", buffer);

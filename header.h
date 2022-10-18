@@ -30,7 +30,6 @@ void getPubComp(char* nameEnter);
 void getPubYear(unsigned int* val);
 void getPubCity(char* nameEnter);
 void getISBN(unsigned long* val);
-int printFinal();
-int freeAndClear();
+
 
 #endif
