@@ -11,7 +11,6 @@
 #include <string.h>
 #include "header.h"
 
-
   /* 
  FIRST NAME:
  LAST NAME:
@@ -31,7 +30,7 @@ int idx =0;
 char buffer[ERROR_TRAP_BUFFER];
 const size_t len=strlen(buffer + 1);
 
-// This is for the max size of an array (10)
+// Author First Name //
  char* authorFName[MAX_COUNTER];
 // Author Last Name //
 char* authorLName[MAX_COUNTER];
@@ -137,7 +136,8 @@ unsigned long isbn[MAX_COUNTER];
       free(pubCompany[idx]);
       free(pubCity[idx]);
     }
-    int clear;
+
+    int clear=0;
     for (clear =0 ;clear < 1; clear++){
      free(authorFName[MAX_COUNTER]);
       free(authorLName[MAX_COUNTER]);
