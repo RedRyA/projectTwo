@@ -1,5 +1,5 @@
-main: main.c
-	gcc main.c -o main
+main: main.c header.c header.h
+	gcc main.c header.c header.h -o main
 
 clean:
 	rm main
