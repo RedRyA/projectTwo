@@ -19,7 +19,7 @@
 #define CITY_AND_PUB_LIMIT 64
 #define ISBN_MIN 1000000000000
 #define ISBN_MAX 9999999999999
-#define MAX_COUNTER 3
+#define MAX_COUNTER 10
 
 int stringCheck(char str[ERROR_TRAP_BUFFER], size_t maxSize);
 void getFName(char* nameEnter);
@@ -30,5 +30,7 @@ void getPubComp(char* nameEnter);
 void getPubYear(unsigned int* val);
 void getPubCity(char* nameEnter);
 void getISBN(unsigned long* val);
+int printFinal();
+int freeAndClear();
 
 #endif
