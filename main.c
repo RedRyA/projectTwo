@@ -16,8 +16,10 @@
 #define AUTHOR_CHAR_LIMIT 32
 #define BOOK_TITLE_LIMIT 128
 #define CITY_AND_PUB_LIMIT 64
+#define ISBN_MIN 1000000000000
+#define ISBN_MAX 9999999999999
 
-#define MAX_COUNTER 10
+#define MAX_COUNTER 3
 
 // HEADERS //
 #include <ctype.h>
@@ -26,13 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
-
-// layout of variables //
-
- /* 
-
+  /* 
  FIRST NAME:
  LAST NAME:
  BOOK TITILE:
@@ -41,13 +37,31 @@
  PUB YEAR:
  PUB CITY:
  ISBN:
-
 */
 
-// global variables: //
-char buffer[ERROR_TRAP_BUFFER];
 
-// Author First Name //
+
+
+
+
+// String Check Function
+
+int stringCheck(char str[ERROR_TRAP_BUFFER], size_t maxSize);
+void getFName(char* nameEnter);
+void getLName(char* nameEnter);
+void getBookName(char* nameEnter);
+void getBookEdit(unsigned int* val);
+void getPubComp(char* nameEnter);
+void getPubYear(unsigned int* val);
+void getPubCity(char* nameEnter);
+void getISBN(unsigned long* val);
+
+int main() {
+int counter=0;
+int idx =0;
+
+char buffer[ERROR_TRAP_BUFFER];
+const size_t len=strlen(buffer + 1);
 
 // This is for the max size of an array (10)
  char* authorFName[MAX_COUNTER];
@@ -56,51 +70,116 @@ char* authorLName[MAX_COUNTER];
 //Book Title //
  char* bookTitle[MAX_COUNTER];
  // Book Edition //
- unsigned int* bookEdition[MAX_COUNTER];
+ unsigned int bookEdition[MAX_COUNTER];
 // Publication Company //
  char* pubCompany[MAX_COUNTER];
 //Publicatiuon Year //
-unsigned int* pubYear[MAX_COUNTER];
+unsigned int pubYear[MAX_COUNTER];
 // Publication City //
 char* pubCity[MAX_COUNTER];
 // ISBN-13 Number //
- unsigned long* isbn[MAX_COUNTER];
-
-  /* 
-
- FIRST NAME:
- LAST NAME:
- BOOK TITILE:
- EDITION:
- PUB COMPAMNY:
- PUB YEAR:
- PUB CITY:
- ISBN:
-
-*/
-const size_t len=strlen(buffer + 1);
-char nameEnter[ERROR_TRAP_BUFFER];
+ unsigned long isbn[MAX_COUNTER];
 
 
-char* aut  horFName[idx](char*)malloc(len * sizeof(char));
 
-char* authorLName[idx](char*)malloc(len * sizeof(char));
+  for (int idx=0;idx<MAX_COUNTER;idx++)
+  {
 
-char* bookTitle[idx](char*)malloc(len * sizeof(char));
+       /////////// AUTHOR FIRST NAME  /////////////////
+       
+getFName(buffer);
+authorFName[idx]=(char*)malloc(len * sizeof(char));
+strcpy(authorFName[idx], buffer);
+memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
-unsigned int* bookEdition[idx](int*)malloc(len * sizeof(int));
+////////////// AUTHOR LAST NAME  ////////////////////////
 
-char* pubCompany[idx](char*)malloc(len * sizeof(char));
+getLName(buffer);
+authorLName[idx]=(char*)malloc(len * sizeof(char));
+strcpy(authorLName[idx], buffer);
+memset(buffer, '\0', ERROR_TRAP_BUFFER);
+
+   /////////////  BOOK TITILE  ////////////////////////
+  
+ getBookName(buffer);
+  bookTitle[idx]=(char*)malloc(len * sizeof(char));
+   strcpy(bookTitle[idx], buffer);
+      memset(buffer, '\0', ERROR_TRAP_BUFFER);
+
+/////////////// BOOK EDITION  ////////////////////////
+ getBookEdit(&bookEdition[idx]);
+
+    //////////////// PUBLICATION COMPANY  ////////////////
+    
+ getPubComp(buffer);
+ pubCompany[idx]=(char*)malloc(len * sizeof(char));
+strcpy(pubCompany[idx], buffer);
+      memset(buffer, '\0', ERROR_TRAP_BUFFER);
+
+      ///////////// PUBLICATION YEAR  //////////////////////
+  
+ getPubYear(&pubYear[idx]);
+
+      /////////// PUBLICATION CITY  //////////////////////
+      
+ getPubCity(buffer);
+ pubCity[idx]=(char*)malloc(len * sizeof(char));
+strcpy(pubCity[idx], buffer);
+      memset(buffer, '\0', ERROR_TRAP_BUFFER);
 
 
-// int needs a value rather than a string (duh)
-unsigned int* pubYear[idx](int*)malloc(len * sizeof(int));
+      //////////////// ISBN  ////////////////////////  
+ getISBN(&isbn[idx]);
 
-char* pubCity[idx](char*)malloc(len * sizeof(char));
 
-unsigned int* isbn[idx](int*)malloc(len * sizeof(int));
+    counter++;
+    
+      if (counter <MAX_COUNTER){
+	
+      printf ("Would you like to continue?\n Y/N\n");
+      scanf ("%s", buffer);
+      getchar ();
+      char ans = toupper (buffer[0]);
+      memset(buffer,'\0',ERROR_TRAP_BUFFER);
+      if (ans != 'Y')
+	{
+	  break;
+	}
+  
+  }
+  }
 
-// String Check Function
+ for (int idx = 0; idx < counter; idx++)
+    {
+      
+      printf("\nAuthor's First Name: %s", authorFName[idx]);
+      printf("\nAuthor's Last Name: %s",authorLName[idx]);
+      printf("\nBook Title: %s",bookTitle[idx]);
+      printf("\nBook Edition: %d",bookEdition[idx]);
+      printf("\nPublication Company: %s",pubCompany[idx]);
+      printf("\nPublication Year: %d",pubYear[idx]);
+      printf("\nPublication City %s",pubCity[idx]);
+      printf ("\nISBN: %lu \n",isbn[idx]);
+
+      free(authorFName[idx]);
+      free(authorLName[idx]);
+      free(bookTitle[idx]);
+      free(pubCompany[idx]);
+      free(pubCity[idx]);
+    }
+    int clear;
+    for (clear =0 ;clear < 1; clear++){
+     free(authorFName[MAX_COUNTER]);
+      free(authorLName[MAX_COUNTER]);
+      free(bookTitle[MAX_COUNTER]);
+      free(pubCompany[MAX_COUNTER]);
+      free(pubCity[MAX_COUNTER]);
+    }
+      
+  return 0;
+}
+
+// check string //
 int stringCheck(char str[ERROR_TRAP_BUFFER], size_t maxSize) 
 {
     int strReturnSize = (int)(strlen(str)-maxSize);
@@ -111,145 +190,51 @@ int stringCheck(char str[ERROR_TRAP_BUFFER], size_t maxSize)
 
 }
 
-
-int getFName(char* nameEnter);
-int getLName(char* nameEnter);
-int getBookName(char* nameEnter);
-int getBookEdit(unsigned int* val);
-int getPubComp(char* nameEnter);
-int getPubYear(unsigned int* val);
-int getPubCity(char* nameEnter);
-int getISBN(unsigned long* val);
-
-int main() 
-{
-
-
-  int counter = 0;
-
-  for (int idx=0;idx<MAX_COUNTER;idx++){
-    
-       /////////// AUTHOR FIRST NAME  /////////////////
-int getFName(buffer);
-strcpy(authorFName, buffer);
- memset(buffer, '\0', ERROR_TRAP_BUFFER);
-
-////////////// AUTHOR LAST NAME  ////////////////////////
-int getLName(char* nameEnter);
- strcpy(authorLName[idx], buffer);
-      memset(buffer, '\0', ERROR_TRAP_BUFFER);
-
-   /////////////  BOOK TITILE  ////////////////////////
-int getBookName(char* nameEnter);
-   strcpy(bookTitle[idx], buffer);
-      memset(buffer, '\0', ERROR_TRAP_BUFFER);
-
-/////////////// BOOK EDITION  ////////////////////////
-int getBookEdit(unsigned int* val);
-
-    //////////////// PUBLICATION COMPANY  ////////////////
-int getPubComp(char* nameEnter);
-strcpy(pubCompany[idx], buffer);
-      memset(buffer, '\0', ERROR_TRAP_BUFFER);
-
-      ///////////// PUBLICATION YEAR  //////////////////////
-  
-int getPubYear(unsigned int* val);
-
-      /////////// PUBLICATION CITY  //////////////////////
-int getPubCity(char* nameEnter);
-strcpy(pubCity[idx], buffer);
-      memset(buffer, '\0', ERROR_TRAP_BUFFER);
-
-
-      //////////////// ISBN  ////////////////////////  
-int getISBN(unsigned long* val);
-
-
-  }
-  // initialize counter for switch statement //
-
-  // main boolean variable for do while loop //
-  bool isGood;
-  // boolean to end main do while
-      
- 
-     
-
-
-    goNoGo=true;
-       counter++;
-    if (counter < MAX_COUNTER) {
-      
-      printf("Would you like to continue?\n Y/N\n");
-      scanf("%s", buffer);
-      getchar();
-      char ans = toupper(buffer[0]);
-      if (ans != 'Y'){
-        goNoGo=false;
-
-            
-    
-     
-      
-    }
-
-  } while ((counter < MAX_COUNTER) && (goNoGo==true));
-
-
-  return 0;
-}
-int getFName(char* nameEnter)
+/// F name
+void getFName(char nameEnter[ERROR_TRAP_BUFFER])
 {
  do {
-
-        isGood = false;
 
         printf("What is the author's first name? \n");
-        scanf(" %[^\n]s", buffer);
+        scanf(" %[^\n]s", nameEnter);
 
-
-      } while (stringCheck(buffer, AUTHOR_CHAR_LIMIT) > 0);
+      } while (stringCheck(nameEnter, AUTHOR_CHAR_LIMIT) > 0);
 }
 
-int getLName(char* nameEnter)
+// L name //
+void getLName(char nameEnter[ERROR_TRAP_BUFFER])
 {
+
  do {
-
-        isGood = false;
-
         printf("What is the author's last name? \n");
-        scanf(" %[^\n]s", buffer);
+        scanf(" %[^\n]s", nameEnter);
 
-      
+      } while (stringCheck(nameEnter, AUTHOR_CHAR_LIMIT) > 0);
 
-      } while (stringCheck(buffer, AUTHOR_CHAR_LIMIT) > 0);
 }
-
-int getBookTitle(char* nameEnter)
+// Book Title
+void getBookName(char nameEnter[ERROR_TRAP_BUFFER])
 {
+
  do {
-
-        isGood = false;
-
         printf("What is the book's title? \n");
-        scanf(" %[^\n]s", buffer);
+        scanf(" %[^\n]s", nameEnter);
 
-
-      } while ((stringCheck(buffer,BOOK_TITLE_LIMIT ) > 0));
+      } while ((stringCheck(nameEnter,BOOK_TITLE_LIMIT ) > 0));
 
 }
-
-int getBookEdit(unsigned int* val)
+// edition //
+void getBookEdit(unsigned int* val)
 {
+  bool isGood;
 do {
         isGood = false;
 
         printf("What is the book's edition? \nEnter 1 if NA\n");
-        scanf("%u", &bookEdition0);
+        scanf("%u", val);
         getchar();
 
-        if( bookEdition < MIN_EDITION || bookEdition0 > MAX_EDITION){
+        if( *val < MIN_EDITION || *val > MAX_EDITION){
           printf("Book edition must be in between 1 and 10. "); 
           isGood = true; 
         }
@@ -257,28 +242,28 @@ do {
       } while (isGood);
 }
 
-int getPubComp(char* nameEnter)
+// Pub company
+void getPubComp(char nameEnter[ERROR_TRAP_BUFFER])
 {
  do {
-
-        isGood = false;
-
         printf("What is the publication company? \n");
-        scanf(" %[^\n]s", buffer);
+        scanf(" %[^\n]s", nameEnter);
 
-      } while ((stringCheck(buffer, CITY_AND_PUB_LIMIT) > 0));
+      } while ((stringCheck(nameEnter, CITY_AND_PUB_LIMIT) > 0));
 }
 
-int getPubYear(unsigned int* val)
+// pub year
+void getPubYear(unsigned int* val)
 {
+  bool isGood;
  do {
         isGood = false;
 
         printf("What is the publication year?\n");
-        scanf("%u", &pubYear0);
+        scanf("%u", val);
         getchar();
 
-        if ((pubYear < MIN_YEAR) || (pubYear0 > MAX_YEAR)) {
+        if ((*val < MIN_YEAR) || (*val > MAX_YEAR)) {
           printf("Publication year must be between 1475 and 2022\n");
           isGood = true;
         }
@@ -286,31 +271,30 @@ int getPubYear(unsigned int* val)
       } while (isGood);
 }
 
-int getPubCity(char* nameEnter)
+// pub city
+void getPubCity(char nameEnter[ERROR_TRAP_BUFFER])
 {
  do {
-        isGood = false;
-
+  
         printf("What is the publication city?\n");
-        scanf(" %[^\n]s", buffer);
+        scanf(" %[^\n]s", nameEnter);
 
-        if (strlen(buffer) >= CITY_AND_PUB_LIMIT) {
-          printf("City name must be less than 64 characters.\n");
-          isGood = true;
-        }
+       
 
-      } while ((stringCheck(buffer, CITY_AND_PUB_LIMIT) > 0));
+      } while ((stringCheck(nameEnter, CITY_AND_PUB_LIMIT) > 0));
 }
 
-int getISBN(unsigned long* val)
+// ISBN //
+void getISBN(unsigned long* val)
 {
+  bool isGood;
  do {
         isGood = false;
 
         printf("What is the ISBN-13 number?\n");
-        scanf("%lu", &isbn);
+        scanf("%lu", val);
         getchar();
-        if ((isbn0 < 1000000000000) || (isbn0 > 9999999999999)) {
+        if ((*val < ISBN_MIN) || (*val > ISBN_MAX)) {
           printf("ISBN-13 must be 13 digits long\n");
           isGood = true;
         }
@@ -318,3 +302,4 @@ int getISBN(unsigned long* val)
       } while (isGood);
 
 }
+
