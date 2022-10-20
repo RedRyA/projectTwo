@@ -49,7 +49,7 @@ unsigned long isbn[MAX_COUNTER];
 
 
 
-  for (int idx=0;idx<MAX_COUNTER;idx++)
+  for( idx=0;idx<MAX_COUNTER;idx++)
   {
 
        /////////// AUTHOR FIRST NAME  /////////////////
@@ -118,7 +118,7 @@ unsigned long isbn[MAX_COUNTER];
   }
   }
 
- for (int idx = 0; idx < counter; idx++)
+ for ( idx = 0; idx < counter; idx++)
     {
       
       printf("\nAuthor's First Name: %s", authorFName[idx]);
@@ -137,15 +137,7 @@ unsigned long isbn[MAX_COUNTER];
       free(pubCity[idx]);
     }
 
-    int clear=0;
-    for (clear =0 ;clear < 1; clear++){
-     free(authorFName[MAX_COUNTER]);
-      free(authorLName[MAX_COUNTER]);
-      free(bookTitle[MAX_COUNTER]);
-      free(pubCompany[MAX_COUNTER]);
-      free(pubCity[MAX_COUNTER]);
-    }
-      
+
   return 0;
 }
 
